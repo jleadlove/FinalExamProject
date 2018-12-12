@@ -6,8 +6,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import pkgApp.RetirementApp;
+import pkgCore.Retirement;
 
 public class RetirementController implements Initializable {
 
@@ -16,6 +18,27 @@ public class RetirementController implements Initializable {
 	
 	@FXML
 	private TextField txtYearsToWork;
+	
+	@FXML
+	private TextField txtAnnualReturnWorking;
+	
+	@FXML
+	private TextField txtYearsRetired;
+	
+	@FXML
+	private TextField txtAnnualReturnRetired;
+	
+	@FXML
+	private TextField txtRequiredIncome;
+	
+	@FXML
+	private TextField txtMonthlySSI;
+	
+	@FXML
+	private Label lblSaveEachMonth;
+	
+	@FXML
+	private Label lblNeedToSave;
 	
 
 	public RetirementApp getMainApp() {
@@ -33,14 +56,29 @@ public class RetirementController implements Initializable {
 	@FXML
 	public void btnClear(ActionEvent event) {
 		System.out.println("Clear pressed");
-		
-		//	TODO: Clear all the text inputs
+		txtYearsToWork.setText("");
+		txtAnnualReturnWorking.setText("");
+		txtYearsRetired.setText("");
+		txtAnnualReturnRetired.setText("");
+		txtRequiredIncome.setText("");
+		txtMonthlySSI.setText("");
+		lblSaveEachMonth.setText("");
+		lblNeedToSave.setText("");
 	}
 	
 	@FXML
 	public void btnCalculate(ActionEvent event) {
 		
-		//	TODO: Call AmountToSave and TotalAmountSaved and populate 
+		Retirement rt = new Retirement();
+		rt.setiYearsToWork(Integer.parseInt(txtYearsToWork.getText()));
+		rt.setdAnnualReturnWorking(Double.parseDouble(txtAnnualReturnWorking.getText()));
+		rt.setiYearsRetired(Integer.parseInt(txtYearsRetired.getText()));
+		rt.setdAnnualReturnRetired(Double.parseDouble(txtAnnualReturnRetired.getText()));
+		rt.setdRequiredIncome(Double.parseDouble(txtRequiredIncome.getText()));
+		rt.setdMonthlySSI(Double.parseDouble(txtMonthlySSI.getText()));
+		
+		lblNeedToSave.setText(Double.toString(Math.abs((rt.TotalAmountSaved()))));
+		lblSaveEachMonth.setText(Double.toString(rt.AmountToSave()));
 		
 	}
 	
